@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zapiltar — Portfolio</title>
+  <meta name="description" content="Game mods, tools, software and art by Zapiltar.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="#top">zapiltar<span>.</span></a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#art">Art</a>
+      <a href="#about">About</a>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme">◐</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">Modder · Tool builder · Designer</p>
+      <h1>Hi, I'm <span class="accent">Zapiltar</span>.</h1>
+      <p class="lede">
+        I make game mods, the tools that power them, and the art that ties it together —
+        from companion characters and achievement systems to desktop apps and launchers.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#work">See my work</a>
+        <a class="btn" href="https://github.com/Zapiltar-E7" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </section>
+
+    <section id="work" class="section">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <div class="filters" role="tablist" aria-label="Filter projects">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="mods">Mods &amp; tools</button>
+          <button class="chip" data-filter="software">Software</button>
+        </div>
+      </div>
+
+      <div class="grid" id="project-grid">
+        <!-- To add a project: copy one <article> block and edit it.
+             data-cat is "mods" or "software" (space-separate for both). -->
+
+        <article class="card" data-cat="mods software">
+          <div class="thumb" style="--h1:205;--h2:260">SS</div>
+          <div class="card-body">
+            <h3>Shortcut Studio</h3>
+            <p>A Steam companion app and plugin for custom shortcuts and per-game achievements that pop Steam's own achievement toast, with controller-friendly Big Picture integration.</p>
+            <ul class="tags"><li>Steam</li><li>Plugin</li><li>Desktop app</li></ul>
+          </div>
+        </article>
+
+        <article class="card" data-cat="mods">
+          <div class="thumb" style="--h1:190;--h2:140">✦</div>
+          <div class="card-body">
+            <h3>Navi for Breath of the Wild</h3>
+            <p>A fairy companion mod that brings Navi into BotW — custom actor AI, Cemu/UKMM setup, and an in-progress Switch port with my own NCA/BKTR reader.</p>
+            <ul class="tags"><li>Zelda</li><li>Cemu</li><li>Reverse engineering</li></ul>
+          </div>
+        </article>
+
+        <article class="card" data-cat="mods">
+          <div class="thumb" style="--h1:40;--h2:10">★</div>
+          <div class="card-body">
+            <h3>Tears of the Kingdom Achievements</h3>
+            <p>A full achievement set for the TotK recomp, driven by reading in-game save flags, with custom Zonai-styled medallion art.</p>
+            <ul class="tags"><li>Zelda</li><li>Achievements</li><li>Save parsing</li></ul>
+          </div>
+        </article>
+
+        <article class="card" data-cat="mods">
+          <div class="thumb" style="--h1:270;--h2:220">D</div>
+          <div class="card-body">
+            <h3>Dusklight Achievements</h3>
+            <p>Fifty original achievements for a Twilight Princess PC port, hooked into the emulator and surfaced through Steam.</p>
+            <ul class="tags"><li>Zelda</li><li>Achievements</li></ul>
+          </div>
+        </article>
+
+        <article class="card" data-cat="mods software">
+          <div class="thumb" style="--h1:120;--h2:180">⧉</div>
+          <div class="card-body">
+            <h3>BotW Cemu Mod Packs</h3>
+            <p>Curated mod packs with a launcher for switching between them, hand-merged fonts and a shared resource table build script.</p>
+            <ul class="tags"><li>Cemu</li><li>Python</li><li>Tooling</li></ul>
+          </div>
+        </article>
+
+        <article class="card" data-cat="software">
+          <div class="thumb" style="--h1:100;--h2:200">MC</div>
+          <div class="card-body">
+            <h3>Minecraft Host</h3>
+            <p>A desktop app for running and managing Minecraft servers, with a consistent themeable UI across every tab.</p>
+            <ul class="tags"><li>Desktop app</li><li>Minecraft</li><li>Theming</li></ul>
+          </div>
+        </article>
+
+        <article class="card" data-cat="mods software">
+          <div class="thumb" style="--h1:170;--h2:30">◈</div>
+          <div class="card-body">
+            <h3>TotK Art Kit</h3>
+            <p>Extracted UI and item textures with a from-scratch ASTC texture decoder, packaged as a reusable art kit.</p>
+            <ul class="tags"><li>Textures</li><li>ASTC</li><li>Tooling</li></ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="art" class="section">
+      <div class="section-head">
+        <h2>Art &amp; design</h2>
+        <p class="muted">Drop images into <code>images/</code> and point each tile at one.</p>
+      </div>
+      <div class="gallery">
+        <!-- Replace each placeholder with: <figure><img src="images/your-file.png" alt="Description"><figcaption>Title</figcaption></figure> -->
+        <figure class="placeholder"><div>Artwork 1</div><figcaption>Title coming soon</figcaption></figure>
+        <figure class="placeholder"><div>Artwork 2</div><figcaption>Title coming soon</figcaption></figure>
+        <figure class="placeholder"><div>Artwork 3</div><figcaption>Title coming soon</figcaption></figure>
+        <figure class="placeholder"><div>Artwork 4</div><figcaption>Title coming soon</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <h2>About</h2>
+      <p>
+        I'm a modder and developer who likes digging into how games work and building things
+        on top of them — reverse engineering formats, writing tools, and polishing the result
+        until it feels like it shipped with the game. <em>(Edit this bio in index.html.)</em>
+      </p>
+      <div class="links">
+        <a class="btn" href="https://github.com/Zapiltar-E7" target="_blank" rel="noopener">GitHub</a>
+        <!-- <a class="btn" href="mailto:you@example.com">Email</a> -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© <span id="year"></span> Zapiltar</span>
+    <span class="mono">built with plain HTML · hosted on GitHub Pages</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
