@@ -2,19 +2,29 @@
   "name": "Zapiltar",
   "seo": {
     "title": "Zapiltar",
-    "description": "Zapiltar - modder and tool builder making game mods, tools, software and art.",
+    "description": "Zapiltar - developer making games, game mods, and tools.",
     "jobTitle": "Modder & Tool Builder"
   },
   "hero": {
     "greeting": "Hi, I'm Zapiltar",
-    "headline": "Modder &\nTool Builder",
-    "intro": "Making game mods, the tools that power them, and the art that ties it together, built with a lot of *reverse engineering*."
+    "headline": "Modder and Developer",
+    "intro": "I make video games, mods for video games, and QoL tools for the games I enjoy."
   },
   "socials": [
     {
       "icon": "github",
       "label": "GitHub",
       "url": "https://github.com/Zapiltar-E7"
+    },
+    {
+      "icon": "email",
+      "label": "Email",
+      "url": "zapiltar@gmail.com"
+    },
+    {
+      "icon": "link",
+      "label": "Gamebanana",
+      "url": "https://gamebanana.com/members/6159876"
     }
   ],
   "tech": [
@@ -30,6 +40,13 @@
     "items": [
       {
         "icon": "gamepad",
+        "title": "Game Development",
+        "points": [
+          "Game development in Godot"
+        ]
+      },
+      {
+        "icon": "code",
         "title": "Game Modding",
         "points": [
           "New characters, behaviours and achievements",
@@ -42,8 +59,7 @@
         "title": "Tools & Software",
         "points": [
           "Desktop apps and launchers",
-          "Steam plugins and integrations",
-          "Asset pipelines and decoders"
+          "Steam plugins and integrations"
         ]
       },
       {
@@ -51,7 +67,8 @@
         "title": "Art & Design",
         "points": [
           "Game-styled UI and icons",
-          "Texture work and art kits"
+          "Texture work and art kits",
+          "3D Modeling and Rendering in Blender"
         ]
       }
     ]
@@ -65,59 +82,38 @@
       {
         "title": "Shortcut Studio",
         "status": "Steam app & plugin · achievements",
-        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=Shortcut+Studio",
+        "image": "images/studio1.png",
         "url": "https://github.com/Zapiltar-E7/shortcut-studio",
         "codeUrl": "https://github.com/Zapiltar-E7/shortcut-studio"
       },
       {
-        "title": "Navi for Breath of the Wild",
-        "status": "Zelda mod · Cemu & Switch",
-        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=Navi+for+Breath+of+the+Wild",
-        "url": "https://github.com/Zapiltar-E7",
-        "codeUrl": "https://github.com/Zapiltar-E7"
-      },
-      {
-        "title": "TotK Achievements",
-        "status": "Achievement set for the TotK recomp",
-        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=TotK+Achievements",
-        "url": "https://github.com/Zapiltar-E7",
-        "codeUrl": "https://github.com/Zapiltar-E7"
-      },
-      {
-        "title": "Dusklight Achievements",
-        "status": "50 achievements for a Twilight Princess port",
-        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=Dusklight+Achievements",
-        "url": "https://github.com/Zapiltar-E7",
-        "codeUrl": "https://github.com/Zapiltar-E7"
-      },
-      {
-        "title": "BotW Cemu Mod Packs",
-        "status": "Mod packs + launcher",
-        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=BotW+Cemu+Mod+Packs",
-        "url": "https://github.com/Zapiltar-E7",
-        "codeUrl": "https://github.com/Zapiltar-E7"
-      },
-      {
         "title": "Minecraft Host",
         "status": "Desktop app for Minecraft servers",
-        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=Minecraft+Host",
+        "image": "images/mc1.png",
         "url": "https://github.com/Zapiltar-E7/minecraft-self-hoster",
         "codeUrl": "https://github.com/Zapiltar-E7/minecraft-self-hoster"
       },
       {
-        "title": "TotK Art Kit",
-        "status": "Texture kit with a custom ASTC decoder",
-        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=TotK+Art+Kit",
-        "url": "https://github.com/Zapiltar-E7",
-        "codeUrl": "https://github.com/Zapiltar-E7"
+        "title": "Navi for Breath of the Wild",
+        "status": "Zelda mod · Cemu & Switch",
+        "image": "images/sc2.png",
+        "url": "https://gamebanana.com/mods/742763",
+        "codeUrl": "https://gamebanana.com/mods/742763"
+      },
+      {
+        "title": "Navi for Tears of the Kingdom",
+        "status": "Zelda mod · Switch",
+        "image": "images/totk3.png",
+        "url": "https://gamebanana.com/mods/744196",
+        "codeUrl": "https://gamebanana.com/mods/744196"
       }
     ]
   },
   "contact": {
     "kicker": "Let's talk",
     "title": "Contact",
-    "text": "Have a question about one of my mods or a project in mind? The best place to reach me is GitHub.",
-    "buttonText": "Find me on GitHub",
-    "buttonUrl": "https://github.com/Zapiltar-E7"
+    "text": "Have a question about one of my mods or a project in mind? The best place to reach me is via Email.",
+    "buttonText": "Shoot me an Email",
+    "buttonUrl": "mailto:zapiltar@gmail.com"
   }
 }
