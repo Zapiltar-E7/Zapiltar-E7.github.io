@@ -3,11 +3,12 @@ import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 
 import react from "@astrojs/react";
+import siteEditor from "./editor/integration.mjs";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://zapiltar-e7.github.io",
-  integrations: [tailwind(), react()],
+  integrations: [tailwind(), react(), siteEditor()],
   vite: {
     resolve: {
       alias: {

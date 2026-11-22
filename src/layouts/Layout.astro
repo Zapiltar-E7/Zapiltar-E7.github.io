@@ -3,6 +3,7 @@ interface Props {
   title: string;
 }
 
+import { site } from "../data/site";
 const { title } = Astro.props;
 const siteUrl = "https://zapiltar-e7.github.io/";
 const baseUrl = import.meta.env.BASE_URL;
@@ -15,7 +16,7 @@ const baseUrl = import.meta.env.BASE_URL;
     <title>{title} | Portfolio</title>
     <meta
       name="description"
-      content="Zapiltar - modder and tool builder making game mods, tools, software and art."
+      content={site.seo.description}
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href={`${baseUrl}favicon.png`} />
@@ -31,30 +32,21 @@ const baseUrl = import.meta.env.BASE_URL;
 
     <meta
       property="og:title"
-      content="Zapiltar | Modder & Tool Builder"
+      content={`${site.name} | ${site.seo.jobTitle}`}
     />
     <meta
       property="og:description"
-      content="Portfolio of Zapiltar: game mods, tools, software and art."
+      content={site.seo.description}
     />
     <meta property="og:url" content={siteUrl} />
     <meta property="og:type" content="website" />
     <meta
       property="og:site_name"
-      content="Zapiltar Portfolio"
+      content={`${site.name} Portfolio`}
     />
 
     <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Zapiltar",
-        "url": "https://zapiltar-e7.github.io/",
-        "sameAs": ["https://github.com/Zapiltar-E7"],
-        "jobTitle": "Modder & Tool Builder"
-      }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", "@type": "Person", name: site.name, url: siteUrl, sameAs: site.socials.map((x) => x.url).filter((u) => u.startsWith("http")), jobTitle: site.seo.jobTitle })} />
   </head>
   <body class="bg-[--background] sm:px-28 lg:px-20 px-9">
     <slot />

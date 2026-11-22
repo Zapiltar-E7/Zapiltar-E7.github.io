@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site editor</title>
+<style>
+  :root {
+    --bg: #101010; --panel: #161616; --field: #1d1d1d; --line: #ffffff14; --line-2: #ffffff26;
+    --text: #dfdfdf; --muted: #f3f3f398; --sec: #a476ff; --sec-tr: #a476ff26; --ok: #a9ff5b; --bad: #ff6b6b;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 "Montserrat Variable", system-ui, sans-serif; }
+  @font-face { font-family: "Montserrat Variable"; src: url("/fonts/montserrat-latin-wght-normal.woff2") format("woff2-variations"); font-weight: 100 900; }
+
+  header {
+    position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    padding: 14px 24px; background: #101010e6; backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);
+  }
+  header h1 { font-size: 18px; font-weight: 600; margin: 0 auto 0 0; }
+  header h1 span { color: var(--sec); }
+  #status { font-size: 13px; color: var(--muted); }
+  #status.dirty { color: #ffd166; } #status.ok { color: var(--ok); } #status.err { color: var(--bad); }
+
+  main { max-width: 980px; margin: 0 auto; padding: 24px 24px 120px; }
+  details { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; margin-bottom: 16px; }
+  summary { cursor: pointer; padding: 16px 20px; font-size: 17px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; }
+  summary::after { content: "▾"; color: var(--muted); transition: transform .2s; }
+  details:not([open]) summary::after { transform: rotate(-90deg); }
+  .body { padding: 0 20px 20px; display: grid; gap: 14px; }
+  .hint { color: var(--muted); font-size: 13px; margin: -4px 0 0; }
+
+  label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+  input, textarea, select {
+    font: inherit; color: var(--text); background: var(--field); border: 1px solid var(--line-2); border-radius: 10px; padding: 9px 12px; width: 100%;
+  }
+  textarea { resize: vertical; min-height: 64px; }
+  input:focus, textarea:focus, select:focus { outline: 2px solid var(--sec); outline-offset: -1px; }
+  .row { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+  button, .btn {
+    font: inherit; font-size: 14px; cursor: pointer; color: var(--text); text-decoration: none;
+    background: #1414149c; border: 1px solid var(--line-2); border-radius: 999px; padding: 8px 16px; white-space: nowrap;
+  }
+  button:hover, .btn:hover { background: #ffffff10; color: #fff; }
+  button.primary { background: var(--sec); border-color: var(--sec); color: #101010; font-weight: 600; }
+  button.primary:hover { filter: brightness(1.1); }
+  button.icon { padding: 6px 10px; border-radius: 8px; line-height: 1; }
+  button.danger:hover { border-color: var(--bad); color: var(--bad); }
+  button:disabled { opacity: .4; cursor: default; }
+  .add { justify-self: start; border-style: dashed; }
+
+  .item { border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 12px; background: #131313; }
+  .item-head { display: flex; align-items: center; gap: 8px; }
+  .item-head .grow { flex: 1; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tools { display: flex; gap: 6px; }
+
+  .social { display: grid; grid-template-columns: 44px 170px 1fr 1.6fr auto; gap: 10px; align-items: center; }
+  .ico { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line-2); border-radius: 12px; color: var(--muted); }
+  .ico svg { width: 24px; height: 24px; fill: currentColor; }
+
+  .card { display: grid; grid-template-columns: 220px 1fr; gap: 16px; }
+  .thumb { width: 220px; aspect-ratio: 3 / 2; border-radius: 12px; overflow: hidden; background: #1a1a1a; border: 1px solid var(--line); display: grid; place-items: center; color: var(--muted); font-size: 13px; position: relative; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .thumb.drag { outline: 2px dashed var(--sec); }
+  .img-row { display: flex; gap: 8px; }
+  .img-row input { flex: 1; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 8px 6px 10px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--field); }
+  .chip img { width: 20px; height: 20px; }
+  .chip button { padding: 2px 7px; }
+
+  #log { position: fixed; inset: auto 24px 24px 24px; max-width: 900px; margin: 0 auto; max-height: 40vh; overflow: auto; background: #0b0b0b; border: 1px solid var(--line-2); border-radius: 14px; padding: 14px 16px; font: 12px/1.5 ui-monospace, Consolas, monospace; white-space: pre-wrap; display: none; }
+  #log.show { display: block; }
+  #log .close { position: sticky; top: 0; float: right; }
+
+  @media (max-width: 760px) {
+    .social { grid-template-columns: 44px 1fr; }
+    .social > :nth-child(n+3) { grid-column: 1 / -1; }
+    .card { grid-template-columns: 1fr; }
+    .thumb { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Site <span>editor</span></h1>
+  <span id="status">Loading…</span>
+  <a class="btn" href="/" target="_blank" rel="noopener">View site ↗</a>
+  <button id="save" class="primary">Save</button>
+  <button id="publish">Publish to GitHub</button>
+</header>
+
+<main id="app"></main>
+<div id="log"><button class="icon close" onclick="this.parentNode.classList.remove('show')">✕</button><div id="log-text"></div></div>
+
+<script>
+let data, meta, dirty = false;
+const app = document.getElementById("app");
+const statusEl = document.getElementById("status");
+
+// ---------- tiny DOM helper (user text always goes through .value / textContent) ----------
+function h(tag, props = {}, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === "class") el.className = v;
+    else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+    else if (k === "html") el.innerHTML = v; // only used for trusted icon markup
+    else if (v !== undefined && v !== null && v !== false) el.setAttribute(k, v === true ? "" : v);
+  }
+  for (const kid of kids.flat()) if (kid != null && kid !== false) el.append(kid);
+  return el;
+}
+function setStatus(text, cls = "") { statusEl.textContent = text; statusEl.className = cls; }
+function touch() { dirty = true; setStatus("Unsaved changes", "dirty"); }
+
+// Bind an input to obj[key]. opts.lines: textarea where each line is an array item.
+function field(labelText, obj, key, opts = {}) {
+  const multi = opts.textarea || opts.lines;
+  const val = opts.lines ? (obj[key] || []).join("\n") : (obj[key] ?? "");
+  const input = h(multi ? "textarea" : "input", { placeholder: opts.placeholder || "", rows: opts.rows || 3 });
+  input.value = val;
+  input.addEventListener("input", () => {
+    obj[key] = opts.lines ? input.value.split("\n").map((s) => s.trim()).filter(Boolean) : input.value;
+    touch();
+    opts.onChange?.(input.value);
+  });
+  return h("label", {}, labelText, input, opts.hint ? h("span", { class: "hint" }, opts.hint) : null);
+}
+
+function listTools(list, i, rerender, { duplicate } = {}) {
+  const move = (d) => { const j = i + d; [list[i], list[j]] = [list[j], list[i]]; touch(); rerender(); };
+  return h("div", { class: "tools" },
+    h("button", { class: "icon", title: "Move up", disabled: i === 0, onclick: () => move(-1) }, "↑"),
+    h("button", { class: "icon", title: "Move down", disabled: i === list.length - 1, onclick: () => move(1) }, "↓"),
+    duplicate ? h("button", { class: "icon", title: "Duplicate", onclick: () => { list.splice(i + 1, 0, structuredClone(list[i])); touch(); rerender(); } }, "⧉") : null,
+    h("button", { class: "icon danger", title: "Remove", onclick: () => { if (confirm("Remove this?")) { list.splice(i, 1); touch(); rerender(); } } }, "✕"));
+}
+
+function section(title, hint, build, open = true) {
+  const body = h("div", { class: "body" });
+  if (hint) body.append(h("p", { class: "hint" }, hint));
+  const d = h("details", open ? { open: true } : {}, h("summary", {}, title), body);
+  const content = h("div", { style: "display:grid;gap:14px" });
+  body.append(content);
+  const render = () => { content.replaceChildren(...[].concat(build(render))); };
+  render();
+  return d;
+}
+
+const iconSvg = (paths) => `<svg viewBox="0 0 24 24">${paths}</svg>`;
+const assetUrl = (src) => !src ? "" : /^(https?:)?\/\//.test(src) || src.startsWith("data:") ? src : "/" + src.replace(/^\/+/, "");
+
+async function api(path, body, type = "application/json") {
+  const r = await fetch(path, { method: body === undefined ? "GET" : "POST", headers: body === undefined ? {} : { "Content-Type": type, "X-Site-Editor": "1" }, body });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+
+async function uploadImage(file) {
+  setStatus(`Uploading ${file.name}…`);
+  const r = await api(`/__editor/upload?name=${encodeURIComponent(file.name)}`, file, file.type || "application/octet-stream");
+  if (!meta.images.includes(r.path)) meta.images.push(r.path);
+  return r.path;
+}
+
+// ---------- sections ----------
+function introSection() {
+  return section("Intro & page info", null, () => [
+    h("div", { class: "row" },
+      field("Your name (footer, browser tab)", data, "name"),
+      field("Greeting (small line above the headline)", data.hero, "greeting")),
+    field("Headline", data.hero, "headline", { textarea: true, rows: 2, hint: "Each line in this box is a line on the site." }),
+    field("Intro text", data.hero, "intro", { textarea: true, hint: "Wrap words in *stars* to make them purple and shiny, like *reverse engineering*." }),
+    h("div", { class: "row" },
+      field("Job title (used in search results / link previews)", data.seo, "jobTitle"),
+      field("Browser tab title", data.seo, "title")),
+    field("Description (search results / link previews)", data.seo, "description", { textarea: true, rows: 2 }),
+  ]);
+}
+
+function socialsSection() {
+  return section("Social buttons", "Shown under your intro and in the footer. For email, just type the address.", (rerender) => [
+    ...data.socials.map((s, i) => {
+      const ico = h("div", { class: "ico", html: iconSvg(meta.socialIcons[s.icon] || meta.socialIcons.link) });
+      const sel = h("select", { onchange: () => {
+        const old = s.icon; s.icon = sel.value; ico.innerHTML = iconSvg(meta.socialIcons[s.icon]);
+        const pretty = labelFor(old);
+        if (!s.label || s.label === pretty) { s.label = labelFor(s.icon); labelInput.querySelector("input").value = s.label; }
+        touch();
+      } }, ...Object.keys(meta.socialIcons).map((k) => h("option", { value: k, selected: k === s.icon }, labelFor(k))));
+      const labelInput = field("", s, "label", { placeholder: "Label (shown on hover)" });
+      const urlInput = field("", s, "url", { placeholder: s.icon === "email" ? "you@example.com" : "https://…" });
+      return h("div", { class: "social" }, ico, sel, labelInput, urlInput, listTools(data.socials, i, rerender));
+    }),
+    h("button", { class: "add", onclick: () => { data.socials.push({ icon: "link", label: "", url: "" }); touch(); rerender(); } }, "+ Add social button"),
+  ]);
+}
+const LABELS = { github: "GitHub", linkedin: "LinkedIn", email: "Email", x: "X (Twitter)", youtube: "YouTube", discord: "Discord", twitch: "Twitch", kick: "Kick", bluesky: "Bluesky", mastodon: "Mastodon", threads: "Threads", steam: "Steam", reddit: "Reddit", instagram: "Instagram", tiktok: "TikTok", patreon: "Patreon", kofi: "Ko-fi", website: "Website", link: "Other link" };
+const labelFor = (k) => LABELS[k] || k;
+
+function projectsSection() {
+  const p = data.projects;
+  return section("Project cards", "Drag an image onto a card's picture, or use Upload. Pictures look best at 3:2 (e.g. 1200×800).", (rerender) => [
+    h("div", { class: "row" },
+      field("Small purple heading", p, "kicker"),
+      field("Big heading", p, "title")),
+    ...p.cards.map((c, i) => {
+      const img = h("img", { alt: "" });
+      const thumb = h("div", { class: "thumb" });
+      const showImg = () => { if (c.image) { img.src = assetUrl(c.image); thumb.replaceChildren(img); } else thumb.replaceChildren("No picture"); };
+      showImg();
+      const imgInput = h("input", { placeholder: "images/my-shot.png or https://…" });
+      imgInput.value = c.image || "";
+      imgInput.addEventListener("input", () => { c.image = imgInput.value; touch(); showImg(); });
+      const fileInput = h("input", { type: "file", accept: "image/*", style: "display:none" });
+      const doUpload = async (file) => {
+        try { c.image = await uploadImage(file); imgInput.value = c.image; touch(); showImg(); setStatus("Picture added — remember to Save", "dirty"); }
+        catch (e) { setStatus(e.message, "err"); }
+      };
+      fileInput.addEventListener("change", () => fileInput.files[0] && doUpload(fileInput.files[0]));
+      thumb.addEventListener("dragover", (e) => { e.preventDefault(); thumb.classList.add("drag"); });
+      thumb.addEventListener("dragleave", () => thumb.classList.remove("drag"));
+      thumb.addEventListener("drop", (e) => { e.preventDefault(); thumb.classList.remove("drag"); const f = e.dataTransfer.files[0]; if (f) doUpload(f); });
+      const titleEl = h("span", { class: "grow" }, c.title || "Untitled card");
+      return h("div", { class: "item" },
+        h("div", { class: "item-head" }, titleEl, listTools(p.cards, i, rerender, { duplicate: true })),
+        h("div", { class: "card" },
+          h("div", { style: "display:grid;gap:8px;align-content:start" }, thumb,
+            h("div", { class: "img-row" }, h("button", { onclick: () => fileInput.click() }, "Upload picture"), fileInput)),
+          h("div", { style: "display:grid;gap:10px" },
+            field("Title", c, "title", { onChange: (v) => (titleEl.textContent = v || "Untitled card") }),
+            field("Subtitle", c, "status"),
+            h("label", {}, "Picture", imgInput),
+            h("div", { class: "row" },
+              field("Card link (where clicking the card goes)", c, "url", { placeholder: "https://…" }),
+              field("Code link (</> button, leave empty to hide)", c, "codeUrl", { placeholder: "https://github.com/…" })))));
+    }),
+    h("button", { class: "add", onclick: () => { p.cards.push({ title: "New project", status: "", image: "", url: "", codeUrl: "" }); touch(); rerender(); } }, "+ Add card"),
+    h("div", { class: "row" },
+      field("Bottom button text", p, "moreText"),
+      field("Bottom button link", p, "moreUrl")),
+  ]);
+}
+
+function skillsSection() {
+  const s = data.skills;
+  return section("“What I do?” list", "The dropdowns next to the glitch animation.", (rerender) => [
+    field("Heading", s, "title"),
+    ...s.items.map((it, i) => {
+      const ico = h("div", { class: "ico", html: iconSvg(meta.skillIcons[it.icon] || "") });
+      const sel = h("select", { onchange: () => { it.icon = sel.value; ico.innerHTML = iconSvg(meta.skillIcons[it.icon]); touch(); } },
+        ...Object.keys(meta.skillIcons).map((k) => h("option", { value: k, selected: k === it.icon }, k)));
+      return h("div", { class: "item" },
+        h("div", { class: "item-head" }, ico, h("div", { style: "width:140px" }, sel), h("span", { class: "grow" }), listTools(s.items, i, rerender)),
+        field("Title", it, "title"),
+        field("Points (one per line)", it, "points", { lines: true, rows: 3 }));
+    }),
+    h("button", { class: "add", onclick: () => { s.items.push({ icon: "code", title: "New category", points: [] }); touch(); rerender(); } }, "+ Add category"),
+  ], false);
+}
+
+function techSection() {
+  return section("Scrolling tech strip", "The logos that scroll under your intro. Add your own SVG logo (e.g. python.svg) with Upload.", (rerender) => {
+    const unused = meta.tech.filter((t) => !data.tech.includes(t));
+    const addSel = h("select", {}, h("option", { value: "" }, "Add a logo…"), ...unused.map((t) => h("option", { value: t }, t)));
+    addSel.addEventListener("change", () => { if (addSel.value) { data.tech.push(addSel.value); touch(); rerender(); } });
+    const fileInput = h("input", { type: "file", accept: ".svg,image/svg+xml", style: "display:none" });
+    fileInput.addEventListener("change", async () => {
+      const f = fileInput.files[0]; if (!f) return;
+      try {
+        const r = await api(`/__editor/upload-tech?name=${encodeURIComponent(f.name)}`, f, "image/svg+xml");
+        meta.tech.push(r.name); data.tech.push(r.name); touch(); rerender();
+      } catch (e) { setStatus(e.message, "err"); }
+    });
+    return [
+      h("div", { class: "chips" }, ...data.tech.map((t, i) => h("span", { class: "chip" },
+        h("img", { src: `/svg/${t}.svg`, alt: "" }), t,
+        h("button", { class: "icon", title: "Move left", disabled: i === 0, onclick: () => { [data.tech[i - 1], data.tech[i]] = [data.tech[i], data.tech[i - 1]]; touch(); rerender(); } }, "←"),
+        h("button", { class: "icon danger", title: "Remove", onclick: () => { data.tech.splice(i, 1); touch(); rerender(); } }, "✕")))),
+      h("div", { class: "img-row" }, addSel, h("button", { onclick: () => fileInput.click() }, "Upload SVG logo"), fileInput),
+    ];
+  }, false);
+}
+
+function contactSection() {
+  const c = data.contact;
+  return section("Contact", null, () => [
+    h("div", { class: "row" }, field("Small purple heading", c, "kicker"), field("Big heading", c, "title")),
+    field("Text", c, "text", { textarea: true }),
+    h("div", { class: "row" }, field("Button text", c, "buttonText"), field("Button link", c, "buttonUrl")),
+  ], false);
+}
+
+// ---------- save / publish ----------
+async function save() {
+  try {
+    await api("/__editor/save", JSON.stringify(data));
+    dirty = false; setStatus("Saved — the site preview updates by itself", "ok");
+    return true;
+  } catch (e) { setStatus("Save failed: " + e.message, "err"); return false; }
+}
+
+async function publish() {
+  if (!confirm("Save and publish to GitHub?\n\nYour live site updates about 2 minutes later.")) return;
+  if (!(await save())) return;
+  const btn = document.getElementById("publish");
+  btn.disabled = true; setStatus("Publishing…");
+  try {
+    const r = await api("/__editor/publish", "{}");
+    showLog(r.log);
+    setStatus(r.ok ? "Published! Live in ~2 minutes" : "Publish failed — see the log", r.ok ? "ok" : "err");
+  } catch (e) { setStatus("Publish failed: " + e.message, "err"); }
+  btn.disabled = false;
+}
+function showLog(text) { document.getElementById("log-text").textContent = text; document.getElementById("log").classList.add("show"); }
+
+document.getElementById("save").onclick = save;
+document.getElementById("publish").onclick = publish;
+document.addEventListener("keydown", (e) => { if ((e.ctrlKey || e.metaKey) && e.key === "s") { e.preventDefault(); save(); } });
+window.addEventListener("beforeunload", (e) => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+(async () => {
+  try {
+    [data, meta] = await Promise.all([api("/__editor/data"), api("/__editor/meta")]);
+    app.append(introSection(), socialsSection(), projectsSection(), skillsSection(), techSection(), contactSection());
+    setStatus("All changes saved", "ok");
+  } catch (e) { setStatus("Couldn't load: " + e.message, "err"); }
+})();
+</script>
+</body>
+</html>

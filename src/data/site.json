@@ -1,0 +1,123 @@
+{
+  "name": "Zapiltar",
+  "seo": {
+    "title": "Zapiltar",
+    "description": "Zapiltar - modder and tool builder making game mods, tools, software and art.",
+    "jobTitle": "Modder & Tool Builder"
+  },
+  "hero": {
+    "greeting": "Hi, I'm Zapiltar",
+    "headline": "Modder &\nTool Builder",
+    "intro": "Making game mods, the tools that power them, and the art that ties it together, built with a lot of *reverse engineering*."
+  },
+  "socials": [
+    {
+      "icon": "github",
+      "label": "GitHub",
+      "url": "https://github.com/Zapiltar-E7"
+    }
+  ],
+  "tech": [
+    "javaScript",
+    "typeScript",
+    "HTML5",
+    "CSS3",
+    "git",
+    "bash"
+  ],
+  "skills": {
+    "title": "What I do?",
+    "items": [
+      {
+        "icon": "gamepad",
+        "title": "Game Modding",
+        "points": [
+          "New characters, behaviours and achievements",
+          "Reverse engineering game formats and code",
+          "Builds for emulators and console"
+        ]
+      },
+      {
+        "icon": "tools",
+        "title": "Tools & Software",
+        "points": [
+          "Desktop apps and launchers",
+          "Steam plugins and integrations",
+          "Asset pipelines and decoders"
+        ]
+      },
+      {
+        "icon": "palette",
+        "title": "Art & Design",
+        "points": [
+          "Game-styled UI and icons",
+          "Texture work and art kits"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "kicker": "My work",
+    "title": "Projects",
+    "moreText": "More projects on",
+    "moreUrl": "https://github.com/Zapiltar-E7",
+    "cards": [
+      {
+        "title": "Shortcut Studio",
+        "status": "Steam app & plugin · achievements",
+        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=Shortcut+Studio",
+        "url": "https://github.com/Zapiltar-E7/shortcut-studio",
+        "codeUrl": "https://github.com/Zapiltar-E7/shortcut-studio"
+      },
+      {
+        "title": "Navi for Breath of the Wild",
+        "status": "Zelda mod · Cemu & Switch",
+        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=Navi+for+Breath+of+the+Wild",
+        "url": "https://github.com/Zapiltar-E7",
+        "codeUrl": "https://github.com/Zapiltar-E7"
+      },
+      {
+        "title": "TotK Achievements",
+        "status": "Achievement set for the TotK recomp",
+        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=TotK+Achievements",
+        "url": "https://github.com/Zapiltar-E7",
+        "codeUrl": "https://github.com/Zapiltar-E7"
+      },
+      {
+        "title": "Dusklight Achievements",
+        "status": "50 achievements for a Twilight Princess port",
+        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=Dusklight+Achievements",
+        "url": "https://github.com/Zapiltar-E7",
+        "codeUrl": "https://github.com/Zapiltar-E7"
+      },
+      {
+        "title": "BotW Cemu Mod Packs",
+        "status": "Mod packs + launcher",
+        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=BotW+Cemu+Mod+Packs",
+        "url": "https://github.com/Zapiltar-E7",
+        "codeUrl": "https://github.com/Zapiltar-E7"
+      },
+      {
+        "title": "Minecraft Host",
+        "status": "Desktop app for Minecraft servers",
+        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=Minecraft+Host",
+        "url": "https://github.com/Zapiltar-E7/minecraft-self-hoster",
+        "codeUrl": "https://github.com/Zapiltar-E7/minecraft-self-hoster"
+      },
+      {
+        "title": "TotK Art Kit",
+        "status": "Texture kit with a custom ASTC decoder",
+        "image": "https://placehold.co/600x400/1a1a1a/a476ff?text=TotK+Art+Kit",
+        "url": "https://github.com/Zapiltar-E7",
+        "codeUrl": "https://github.com/Zapiltar-E7"
+      }
+    ]
+  },
+  "contact": {
+    "kicker": "Let's talk",
+    "title": "Contact",
+    "text": "Have a question about one of my mods or a project in mind? The best place to reach me is GitHub.",
+    "buttonText": "Find me on GitHub",
+    "buttonUrl": "https://github.com/Zapiltar-E7"
+  }
+}

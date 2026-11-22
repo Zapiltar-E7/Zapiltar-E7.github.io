@@ -1,64 +1,7 @@
 ---
+import { site, asset } from "../data/site";
 
-interface Project {
-  title: string;
-  image: string;
-  link: string;
-  preview: string;
-  status: string;
-}
-
-const projects: Project[] = [
-  {
-    title: "Shortcut Studio",
-    image: "https://placehold.co/600x400/1a1a1a/a476ff?text=Shortcut+Studio",
-    link: "https://github.com/Zapiltar-E7/shortcut-studio",
-    preview: "https://github.com/Zapiltar-E7/shortcut-studio",
-    status: "Steam app & plugin · achievements",
-  },
-  {
-    title: "Navi for Breath of the Wild",
-    image: "https://placehold.co/600x400/1a1a1a/a476ff?text=Navi+for+Breath+of+the+Wild",
-    link: "https://github.com/Zapiltar-E7",
-    preview: "https://github.com/Zapiltar-E7",
-    status: "Zelda mod · Cemu & Switch",
-  },
-  {
-    title: "TotK Achievements",
-    image: "https://placehold.co/600x400/1a1a1a/a476ff?text=TotK+Achievements",
-    link: "https://github.com/Zapiltar-E7",
-    preview: "https://github.com/Zapiltar-E7",
-    status: "Achievement set for the TotK recomp",
-  },
-  {
-    title: "Dusklight Achievements",
-    image: "https://placehold.co/600x400/1a1a1a/a476ff?text=Dusklight+Achievements",
-    link: "https://github.com/Zapiltar-E7",
-    preview: "https://github.com/Zapiltar-E7",
-    status: "50 achievements for a Twilight Princess port",
-  },
-  {
-    title: "BotW Cemu Mod Packs",
-    image: "https://placehold.co/600x400/1a1a1a/a476ff?text=BotW+Cemu+Mod+Packs",
-    link: "https://github.com/Zapiltar-E7",
-    preview: "https://github.com/Zapiltar-E7",
-    status: "Mod packs + launcher",
-  },
-  {
-    title: "Minecraft Host",
-    image: "https://placehold.co/600x400/1a1a1a/a476ff?text=Minecraft+Host",
-    link: "https://github.com/Zapiltar-E7/minecraft-self-hoster",
-    preview: "https://github.com/Zapiltar-E7/minecraft-self-hoster",
-    status: "Desktop app for Minecraft servers",
-  },
-  {
-    title: "TotK Art Kit",
-    image: "https://placehold.co/600x400/1a1a1a/a476ff?text=TotK+Art+Kit",
-    link: "https://github.com/Zapiltar-E7",
-    preview: "https://github.com/Zapiltar-E7",
-    status: "Texture kit with a custom ASTC decoder",
-  },
-];
+const { kicker, title, moreText, moreUrl, cards } = site.projects;
 ---
 
 <section
@@ -66,22 +9,22 @@ const projects: Project[] = [
   class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
 >
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">My work</h2>
-    <h3 class="text-4xl md:text-5xl font-medium mb-8">Projects</h3>
+    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">{kicker}</h2>
+    <h3 class="text-4xl md:text-5xl font-medium mb-8">{title}</h3>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
-        projects.map((project) => (
+        cards.map((project) => (
           <div class="group">
             <a
-              href={project.preview}
+              href={project.url || undefined}
               target="_blank"
               rel="noopener noreferrer"
               class="block"
             >
               <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4">
                 <img
-                  src={project.image}
+                  src={asset(project.image)}
                   alt={project.title}
                   class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -94,9 +37,10 @@ const projects: Project[] = [
                   </span>
                 </div>
                 <div class="flex gap-2 ml-auto">
+                  {project.codeUrl && (
                   <a
                     target="_blank"
-                    href={project.link}
+                    href={project.codeUrl}
                     aria-label="GitHub"
                     class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
                   >
@@ -109,9 +53,11 @@ const projects: Project[] = [
                       <path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" />
                     </svg>
                   </a>
+                  )}
+                  {project.url && (
                   <a
                     target="_blank"
-                    href={project.preview}
+                    href={project.url}
                     aria-label="Preview"
                     class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
                   >
@@ -124,6 +70,7 @@ const projects: Project[] = [
                       <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z" />
                     </svg>
                   </a>
+                  )}
                 </div>
               </div>
             </a>
@@ -133,11 +80,11 @@ const projects: Project[] = [
     </div>
     <a
       target="_blank"
-      href="https://github.com/Zapiltar-E7"
+      href={moreUrl}
       aria-label="GitHub"
       class="w-full flex items-center justify-center gap-2 mt-9 text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-full bg-[#1414149c] hover:bg-[var(--white-icon-tr)] hover:scale-105"
     >
-      <span class="md:text-lg text-md">More projects on</span>
+      <span class="md:text-lg text-md">{moreText}</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
