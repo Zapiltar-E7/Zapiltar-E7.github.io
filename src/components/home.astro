@@ -1,5 +1,6 @@
 ---
 import LetterGlitch from "../React/LetterGlitch.tsx";
+import LightPillar from "../React/LightPillar.jsx";
 import LogoWall from "../components/logoWall.astro";
 import SkillsList from "../React/SkillsList.tsx";
 import { site, socialHref, socialSvg, skillSvg, highlightParts } from "../data/site";
@@ -8,8 +9,25 @@ const headline = site.hero.headline.split("\n");
 const skills = site.skills.items.map((s) => ({ ...s, svg: skillSvg(s.icon) }));
 ---
 
-<section class="text-[var(--white)] mt-12 md:mt-0" id="home">
-  <div class="max-w-5xl mx-auto space-y-8 md:py-36 pb-14">
+<section class="text-[var(--white)] mt-12 md:mt-0 relative" id="home">
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-[520px] md:h-[680px] z-0" aria-hidden="true">
+    <LightPillar
+      client:load
+      topColor="#A476FF"
+      bottomColor="#5e4491"
+      intensity={0.9}
+      glowAmount={0.002}
+      bloom={0.5}
+      pillarWidth={3}
+      pillarHeight={0.4}
+      pillarRotation={25}
+      rotationSpeed={0.3}
+      fade={0.6}
+      quality="medium"
+      mixBlendMode="screen"
+    />
+  </div>
+  <div class="relative z-10 max-w-5xl mx-auto space-y-8 md:py-36 pb-14">
     <div class="text-left space-y-4">
       <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white">
         {site.hero.greeting}

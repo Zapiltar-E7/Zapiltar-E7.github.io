@@ -5,6 +5,7 @@ Zapiltar's portfolio, live at https://zapiltar-e7.github.io
 Built on the [DarkMinimal](https://themewagon.com/themes/dark-minimal/) Astro + Tailwind template by
 [Andres Hernandez](https://github.com/Gothsec), distributed by [ThemeWagon](https://themewagon.com) (MIT, see `LICENSE`).
 Social and skill icons from [Remix Icon](https://remixicon.com) (Apache-2.0).
+Hero light effect: [LightPillar](https://reactbits.dev) from React Bits (MIT + Commons Clause).
 
 ## Editing the site
 
