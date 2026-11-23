@@ -180,6 +180,9 @@ void main() {
     result = mix(tinted, ink, uNeutral);
   } else {
     result *= mask;
+    // Dark areas become transparent (premultiplied), so the page shows through without relying on mix-blend-mode.
+    outColor = vec4(result, max(result.r, max(result.g, result.b)));
+    return;
   }
   outColor = vec4(result, 1.0);
 }`;
