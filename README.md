@@ -1,6 +1,6 @@
-# zapiltar-e7.github.io
+# zapiltar.github.io
 
-Zapiltar's portfolio, live at https://zapiltar-e7.github.io
+Zapiltar's portfolio, live at https://zapiltar.github.io
 
 Built on the [DarkMinimal](https://themewagon.com/themes/dark-minimal/) Astro + Tailwind template by
 [Andres Hernandez](https://github.com/Gothsec), distributed by [ThemeWagon](https://themewagon.com) (MIT, see `LICENSE`).

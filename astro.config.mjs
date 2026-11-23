@@ -7,7 +7,7 @@ import siteEditor from "./editor/integration.mjs";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://zapiltar-e7.github.io",
+  site: "https://zapiltar.github.io",
   integrations: [tailwind(), react(), siteEditor()],
   vite: {
     resolve: {

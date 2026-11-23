@@ -14,7 +14,7 @@
     {
       "icon": "github",
       "label": "GitHub",
-      "url": "https://github.com/Zapiltar-E7"
+      "url": "https://github.com/zapiltar"
     },
     {
       "icon": "email",
@@ -77,21 +77,21 @@
     "kicker": "My work",
     "title": "Projects",
     "moreText": "More projects on",
-    "moreUrl": "https://github.com/Zapiltar-E7",
+    "moreUrl": "https://github.com/zapiltar",
     "cards": [
       {
         "title": "Shortcut Studio",
         "status": "Steam app & plugin · achievements",
         "image": "images/studio1.png",
-        "url": "https://github.com/Zapiltar-E7/shortcut-studio",
-        "codeUrl": "https://github.com/Zapiltar-E7/shortcut-studio"
+        "url": "https://github.com/zapiltar/shortcut-studio",
+        "codeUrl": "https://github.com/zapiltar/shortcut-studio"
       },
       {
         "title": "Minecraft Host",
         "status": "Desktop app for Minecraft servers",
         "image": "images/mc1.png",
-        "url": "https://github.com/Zapiltar-E7/minecraft-self-hoster",
-        "codeUrl": "https://github.com/Zapiltar-E7/minecraft-self-hoster"
+        "url": "https://github.com/zapiltar/minecraft-self-hoster",
+        "codeUrl": "https://github.com/zapiltar/minecraft-self-hoster"
       },
       {
         "title": "Navi for Breath of the Wild",
